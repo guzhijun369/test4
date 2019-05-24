@@ -7,6 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from public.common.log import Log
 from config import globalparam
+from config import config
 
 # 测试报告的路径
 reportPath = globalparam.report_path
@@ -14,8 +15,8 @@ logger = Log()
 # 配置收发件人
 recvaddress = ['281878321@qq.com', '435811031@qq.com', '1806935346@qq.com']
 # 163的用户名和密码
-sendaddr_name = 'shenzhentiegan1@163.com'
-sendaddr_pswd = 'q5310543'
+sendaddr_name = config.sendaddr_name
+sendaddr_pswd = config.sendaddr_pswd
 
 
 class SendMail:
