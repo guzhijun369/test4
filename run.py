@@ -3,15 +3,11 @@
 import unittest
 import HTMLTestRunner
 import time
-from UItestframework.config import globalparam
+from test4.config import globalparam
 from UItestframework.public.common import sendmail
 
 def run():
     test_dir = './testcase'
-    suite = unittest.defaultTestLoader.discover(start_dir=test_dir,pattern='test*.py')
-
-    now = time.strftime('%Y-%m-%d_%H_%M_%S')
-    reportname = globalparam.report_path + '\\' + 'TestResult' + now + '.html'
     with open(reportname,'wb') as f:
         runner = HTMLTestRunner.HTMLTestRunner(
             stream=f,
