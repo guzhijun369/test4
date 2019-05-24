@@ -1,10 +1,10 @@
 #coding=utf-8
 
 import time
-from UItestframework.public.common import mytest
-from UItestframework.public.pages import UtomarketRegisterPage
-from UItestframework.public.pages import UtomarketIndexPage
-from UItestframework.public.common import datainfo
+from public.common import mytest
+from public.pages import UtomarketRegisterPage
+from public.pages import UtomarketIndexPage
+from public.common import datainfo
 
 
 class TestRegister(mytest.MyTest):

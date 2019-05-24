@@ -1,6 +1,6 @@
 #coding=utf-8
 
-from UItestframework.public.common import basepage
+from public.common import basepage
 import time
 
 

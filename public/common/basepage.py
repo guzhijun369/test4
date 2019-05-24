@@ -1,6 +1,6 @@
 # coding=utf-8
 import time
-from UItestframework.public.common.captcha import get_track
+from public.common.captcha import get_track
 
 
 class Page(object):

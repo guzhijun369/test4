@@ -3,7 +3,7 @@
 import codecs
 import os
 import xlrd
-from UItestframework.config import globalparam
+from config import globalparam
 
 data_path = globalparam.data_path
 

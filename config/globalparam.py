@@ -1,7 +1,7 @@
 #coding=utf-8
 
 import os
-from UItestframework.public.common.readconfig import ReadConfig
+from public.common.readconfig import ReadConfig
 
 # 读取配置文件
 config_file_path = os.path.split(os.path.realpath(__file__))[0]

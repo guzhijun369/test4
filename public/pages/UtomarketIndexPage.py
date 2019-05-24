@@ -1,6 +1,6 @@
-from UItestframework.public.common import basepage
-from UItestframework.public.pages import UtomarketRegisterPage
-from UItestframework.public.pages import UtomarketLoginPage
+from public.common import basepage
+from public.pages import UtomarketRegisterPage
+from public.pages import UtomarketLoginPage
 import time
 
 

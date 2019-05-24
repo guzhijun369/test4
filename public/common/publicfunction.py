@@ -1,6 +1,6 @@
 #coding=utf-8
 
-from UItestframework.config import globalparam
+from config import globalparam
 
 
 # 截图放到report下的img目录下

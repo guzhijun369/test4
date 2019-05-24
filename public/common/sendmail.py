@@ -5,8 +5,8 @@ import smtplib
 import time
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from UItestframework.public.common.log import Log
-from UItestframework.config import globalparam
+from public.common.log import Log
+from config import globalparam
 
 # 测试报告的路径
 reportPath = globalparam.report_path

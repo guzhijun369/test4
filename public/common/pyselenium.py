@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
-from UItestframework.public.common.log import Log
+from public.common.log import Log
 
 
 success = "SUCCESS   "

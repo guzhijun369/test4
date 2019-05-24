@@ -1,6 +1,6 @@
 #coding=utf-8
 
-from UItestframework.public.common import basepage
+from public.common import basepage
 import time
 
 
@@ -24,9 +24,9 @@ class Login(basepage.Page):
 
     def login(self, account, pw):
          """输入账号密码点击登录"""
-         self.dr.wait(10)
          self.input_account(account)
          self.input_password(pw)
+         time.sleep(2)
          self.click_login_btn()
          self.captcha(188)
     #
