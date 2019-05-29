@@ -5,6 +5,7 @@ from public.common import mytest
 from public.pages import UtomarketLoginPage
 from public.pages import UtomarketIndexPage
 from public.common import datainfo
+from config import config
 
 
 class TestLogin(mytest.MyTest):
@@ -16,22 +17,33 @@ class TestLogin(mytest.MyTest):
         u_login.input_account(account)
         u_login.input_password(pw)
         u_login.click_login_btn()
-        u_login.captcha(188)
-        return u_login
+        u_login.captcha()
 
     def test_login_ok(self):
         """正常登录"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
-        u_login.input_account('test131')
-        u_login.input_password('3201')
-        u_login.click_login_btn()
-        u_login.captcha(188)
+        u_login.login(config.username, '3201')
         result = self.dr.get_title()
         self.assertIn('P2P交易 - 乌托市场(TEST)', result)
 
-    def test_login_account_error(self):
-        pass
+    # def test_login_account_error(self):
+    #     """正确账号错误密码登录"""
+    #     u_index = UtomarketIndexPage.IndexPage(self.dr)
+    #     u_login = u_index.click_login_btn()
+    #     u_login.login(config.username_error, '3202')
+    #     text = u_login.error_span_text()
+    #     self.assertIn('错误', text)
+    #
+    # def test_login_air(self):
+    #     """不输入账号密码直接登录"""
+    #     u_index = UtomarketIndexPage.IndexPage(self.dr)
+    #     u_login = u_index.click_login_btn()
+    #     u_login.input_account('')
+    #     u_login.input_password('')
+    #     u_login.click_login_btn()
+    #     texts = u_login.error_div_texts()
+    #     self.assertListEqual(texts, ['请输入账户名！', '请输入密码！'])
 
     # def _login(self, account, pw, text=''):
     #     """封装登录的函数"""

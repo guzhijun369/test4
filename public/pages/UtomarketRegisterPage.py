@@ -51,6 +51,25 @@ class Register(basepage.Page):
         pass_div = self.dr.element_exist("xpath->//div[contains(text(), '注册成功')]")
 
         return pass_div
+
+    def click_team_service(self):
+        """点击服务条款"""
+        self.dr.click("xpath->//a[contains(text(), '\"服务条款\"')]")
+
+    def click_isclaimer(self):
+        """点击免责声明"""
+        self.dr.click("xpath->//a[contains(text(), '\"免责声明\"')]")
+
+    def get_window(self):
+        """获取点击弹窗"""
+        title_text = self.dr.get_text("css->.ant-modal-title>span")
+
+        return title_text
+
+    def click_login_a(self):
+        """点击使用已有账号登录"""
+        self.dr.click("link_text->使用已有账户登录")
+
     # def into_utomarket_page(self):
     #     """打开乌托注册页面"""
     #     self.dr.open('https://otctest.utomarket.com/#/user/register')

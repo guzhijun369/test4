@@ -2,6 +2,7 @@
 
 import os
 import smtplib
+import requests
 import time
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -12,11 +13,11 @@ from config import config
 # 测试报告的路径
 reportPath = globalparam.report_path
 logger = Log()
-# 配置收发件人
-recvaddress = ['281878321@qq.com', '435811031@qq.com', '1806935346@qq.com']
 # 163的用户名和密码
 sendaddr_name = config.sendaddr_name
 sendaddr_pswd = config.sendaddr_pswd
+# 配置收发件人
+recvaddress = ['281878321@qq.com', '1171499448@qq.com']
 
 
 class SendMail:
@@ -44,22 +45,41 @@ class SendMail:
 
         with open(os.path.join(reportPath, newreport), 'rb') as f:
             mailbody = f.read()
+        # self.msg['html'] = mailbody
         html = MIMEText(mailbody, _subtype='html', _charset='utf-8')
         self.msg.attach(html)
 
         # html附件
         att1 = MIMEText(mailbody, 'base64', 'gb2312')
-        att1["Content-Type"] = 'application/octet-stream'
+        att1["Content-Type"] = 'multipart/form-data'
         att1["Content-Disposition"] = 'attachment; filename="TestReport.html"'  # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
         self.msg.attach(att1)
 
-    def send(self):
+    # def send_simple_message(self):  # 使用mailgun  API发送
+    #     """发送邮件"""
+    #     self.__take_messages()
+    #     newreport = self.__get_report()
+    #     try:
+    #         r = requests.post(
+    #             "https://api.mailgun.net/v3/{}/messages".format(sendaddr_name),
+    #             auth=("api", config.api_key),
+    #             data={"from": "gucheng<mailgun@{}>".format(sendaddr_name),
+    #                   "to": recvaddress,
+    #                   "subject": self.msg['Subject'],
+    #                   "html": self.msg['html'].decode()},
+    #             files=[("attachment", ("test.html", open(os.path.join(reportPath, newreport), "rb").read()))]
+    #         )
+    #         logger.info("发送邮件成功")
+    #     except Exception:
+    #         logger.error('发送邮件失败')
+    #         raise
+    def send(self):  #使用smtp发送
         """发送邮件"""
         self.__take_messages()
-        self.msg['from'] = sendaddr_name
+        self.msg['from'] = 'postmaster@{}'.format(sendaddr_name)
         try:
-            smtp = smtplib.SMTP('smtp.163.com', 25)
-            smtp.login(sendaddr_name, sendaddr_pswd)
+            smtp = smtplib.SMTP('smtp.mailgun.org', 587)
+            smtp.login('postmaster@{}'.format(sendaddr_name), sendaddr_pswd)
             smtp.sendmail(self.msg['from'], self.sendTo, self.msg.as_string())
             smtp.close()
             logger.info("发送邮件成功")

@@ -128,6 +128,36 @@ class PySelenium(object):
                 "Please enter the correct targeting elements,'id','name','class','link_text','xpaht','css'.")
         return element
 
+    def get_elements(self, css):
+        """
+        Judge element positioning way, and returns the elements.
+
+        Usage:
+        driver.get_element('id->kw')
+        """
+        if "->" not in css:
+            raise NameError("Positioning syntax errors, lack of '->'.")
+
+        by = css.split("->")[0].strip()
+        value = css.split("->")[1].strip()
+
+        if by == "id":
+            elements = self.driver.find_elements_by_id(value)
+        elif by == "name":
+            elements = self.driver.find_elements_by_name(value)
+        elif by == "class":
+            elements = self.driver.find_elements_by_class_name(value)
+        elif by == "link_text":
+            elements = self.driver.find_elements_by_link_text(value)
+        elif by == "xpath":
+            elements = self.driver.find_elements_by_xpath(value)
+        elif by == "css":
+            elements = self.driver.find_elements_by_css_selector(value)
+        else:
+            raise NameError(
+                "Please enter the correct targeting elements,'id','name','class','link_text','xpath','css'.")
+        return elements
+
     def open(self, url):
         """
         open url.
@@ -313,6 +343,7 @@ class PySelenium(object):
             self.reset_actions()
             for i in track:
                 ActionChains(self.driver).drag_and_drop_by_offset(el_css, i, 0).perform()
+                time.sleep(0.005)
             time.sleep(0.5)
             self.release_btn()
             self.my_print("{0} Drag and drop x:滑块第<{1}>次移动, Spend {2} seconds".format(success,
