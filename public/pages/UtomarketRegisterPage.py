@@ -20,7 +20,7 @@ class Register(basepage.Page):
 
     def input_nickname(self, nickname):
         """输入用户名"""
-        self.dr.type('id->nickname', nickname)
+        self.dr.clear_type('id->nickname', nickname)
 
     def input_pw(self, pw):
         """输入密码"""
@@ -46,6 +46,18 @@ class Register(basepage.Page):
         """点击注册"""
         self.dr.click("class->ant-btn-primary")
 
+    def get_mail_text(self):
+        """获取邮箱格式错误提示"""
+        text = self.dr.get_text("class->ant-form-explain")
+
+        return text
+
+    def get_code_text(self):
+        """获取验证码成功提现文案"""
+        text = self.dr.get_text("class->ant-form-explain")
+
+        return text
+
     def register_pass(self):
         """获取注册成功标识"""
         pass_div = self.dr.element_exist("xpath->//div[contains(text(), '注册成功')]")
@@ -70,9 +82,14 @@ class Register(basepage.Page):
         """点击使用已有账号登录"""
         self.dr.click("link_text->使用已有账户登录")
 
+    def window_f5(self):
+        """刷新注册页面"""
+        self.dr.F5()
+        time.sleep(1)
+
     # def into_utomarket_page(self):
-    #     """打开乌托注册页面"""
-    #     self.dr.open('https://otctest.utomarket.com/#/user/register')
+    #    """打开乌托注册页面"""
+    #    self.dr.open('https://otctest.utomarket.com/#/user/register')
     #
     # def get_captcha(self, distance, email):
     #     """输入邮箱点击获取验证码"""

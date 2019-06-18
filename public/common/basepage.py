@@ -28,12 +28,12 @@ class Page(object):
             track = get_track(y)[6:]
             self.dr.drag_and_x(slide_btn, track, times)
             alert = self.dr.element_exist('id->tcaptcha_note')
-            if alert and times < 10:
+            if alert and times < 4:
                 y += 6
                 times += 1
                 time.sleep(2)
-            elif alert and times >= 10:
-                distance = 188
+            elif alert and times >= 4:
+                y = self.getPic()
                 times = 1
                 time.sleep(2)
             else:
@@ -81,6 +81,12 @@ class Page(object):
 
     def popup(self):
         """操作成功弹窗"""
-        notice = self.dr.element_exist('css->.ant-message-custom-content>span')
+        notice = self.dr.get_text('css->.ant-message-success>span')
 
         return notice
+
+    def popup_error(self):
+        """操作失败弹窗"""
+        notice_error = self.dr.get_text('css->.ant-message-error>span')
+
+        return notice_error
