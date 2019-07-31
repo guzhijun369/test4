@@ -5,7 +5,7 @@ from public.common import mytest
 from public.pages import UtomarketLoginPage
 from public.pages import UtomarketIndexPage
 from public.common import datainfo
-from config import config
+from config.config import ConfigDate
 
 
 class TestLogin(mytest.MyTest):
@@ -15,7 +15,7 @@ class TestLogin(mytest.MyTest):
         """正常登录"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
-        u_login.login(config.username, '3201')
+        u_login.login(ConfigDate.username, '3201')
         result = self.dr.get_title()
         self.assertIn('P2P交易 - 乌托市场(TEST)', result)
 
@@ -23,7 +23,7 @@ class TestLogin(mytest.MyTest):
         """正确账号错误密码登录"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
-        u_login.login(config.username_error, '3202')
+        u_login.login(ConfigDate.username_error, '3202')
         text = u_login.error_span_text()
         self.assertIn('错误', text)
         self.assertIn('机会尝试登录', text)
@@ -55,12 +55,12 @@ class TestLogin(mytest.MyTest):
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
         for i in range(3):
-            u_login.login(config.pw_error_three, '3202')
+            u_login.login(ConfigDate.pw_error_three, '3202')
             errors = str(5 - i)
             time.sleep(1)
             error_text = u_login.error_span_text()
             self.assertIn(errors, error_text)
-        u_login.login(config.pw_error_three, '3202')
+        u_login.login(ConfigDate.pw_error_three, '3202')
         combo_window = u_login.combo_window()
         self.assertTrue(combo_window, msg="验证弹窗不存在")
 
@@ -69,19 +69,19 @@ class TestLogin(mytest.MyTest):
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
         for i in range(3):
-            u_login.login(config.pw_error_six_email, '3202')
+            u_login.login(ConfigDate.pw_error_six_email, '3202')
             errors = str(5 - i)
             time.sleep(1)
             error_text = u_login.error_span_text()
             self.assertIn(errors, error_text)
         for j in range(2):
-            u_login.login(config.pw_error_six_email, '3202')
+            u_login.login(ConfigDate.pw_error_six_email, '3202')
             u_login.verify_identity_process("3201", "邮箱验证 ")
             errors_next = str(2 - j)
             time.sleep(1.5)
             error_text_next = u_login.error_span_text()
             self.assertIn(errors_next, error_text_next)
-        u_login.login(config.pw_error_six_email, '3202')
+        u_login.login(ConfigDate.pw_error_six_email, '3202')
         u_login.verify_identity_process("3201", "邮箱验证 ")
         title = u_login.banned_window()
         self.assertIn("账号冻结通知", title)
@@ -91,19 +91,19 @@ class TestLogin(mytest.MyTest):
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
         for i in range(3):
-            u_login.login(config.pw_error_six_phone, '3202')
+            u_login.login(ConfigDate.pw_error_six_phone, '3202')
             errors = str(5 - i)
             time.sleep(1)
             error_text = u_login.error_span_text()
             self.assertIn(errors, error_text)
         for j in range(2):
-            u_login.login(config.pw_error_six_phone, '3202')
+            u_login.login(ConfigDate.pw_error_six_phone, '3202')
             u_login.verify_identity_process("3201", "手机验证 ")
             errors_next = str(2 - j)
             time.sleep(1.5)
             error_text_next = u_login.error_span_text()
             self.assertIn(errors_next, error_text_next)
-        u_login.login(config.pw_error_six_phone, '3202')
+        u_login.login(ConfigDate.pw_error_six_phone, '3202')
         u_login.verify_identity_process("3201", "手机验证 ")
         title = u_login.banned_window()
         self.assertIn("账号冻结通知", title)
@@ -113,12 +113,12 @@ class TestLogin(mytest.MyTest):
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
         for i in range(3):
-            u_login.login(config.pw_error_four_true, '3202')
+            u_login.login(ConfigDate.pw_error_four_true, '3202')
             errors = str(5 - i)
             time.sleep(1)
             error_text = u_login.error_span_text()
             self.assertIn(errors, error_text)
-        u_login.login(config.pw_error_four_true, '3201')
+        u_login.login(ConfigDate.pw_error_four_true, '3201')
         u_login.verify_identity_process("3201", "邮箱验证 ")
         time.sleep(2)
         result = self.dr.get_title()
@@ -129,12 +129,12 @@ class TestLogin(mytest.MyTest):
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
         for i in range(3):
-            u_login.login(config.login_error, '3202')
+            u_login.login(ConfigDate.login_error, '3202')
             errors = str(5 - i)
             time.sleep(1)
             error_text = u_login.error_span_text()
             self.assertIn(errors, error_text)
-        u_login.login(config.login_error, '3201')
+        u_login.login(ConfigDate.login_error, '3201')
         u_login.verify_identity_process("3202", "邮箱验证 ")
         time.sleep(1)
         pop_text = u_login.get_pop_error()
@@ -144,7 +144,7 @@ class TestLogin(mytest.MyTest):
         """不存在的账号登录"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_login = u_index.click_login_btn()
-        u_login.login(config.username_exist, '3202')
+        u_login.login(ConfigDate.username_exist, '3202')
         text = u_login.error_span_text()
         self.assertIn('错误', text)
         self.assertNotIn('机会尝试登录', text)

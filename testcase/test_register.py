@@ -5,7 +5,7 @@ from public.common import mytest
 from public.pages import UtomarketRegisterPage
 from public.pages import UtomarketIndexPage
 from public.common import datainfo
-from config import config
+from config.config import ConfigDate
 
 
 class TestRegister(mytest.MyTest):
@@ -14,13 +14,13 @@ class TestRegister(mytest.MyTest):
         """输入错误的验证码注册"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_register = u_index.click_register_btn()
-        u_register.input_email(config.res_email)
+        u_register.input_email(ConfigDate.res_email)
         u_register.get_code()
         u_register.captcha()
         text = u_register.get_code_text()
         self.assertIn('验证码已经发送至您的邮箱，请注意查收', text)
         u_register.input_code('3202')
-        u_register.input_nickname(config.res_nickname)
+        u_register.input_nickname(ConfigDate.res_nickname)
         u_register.input_pw('q5310543')
         u_register.input_confirm_pw('q5310543')
         u_register.click_area()
@@ -34,13 +34,13 @@ class TestRegister(mytest.MyTest):
         """正常注册"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_register = u_index.click_register_btn()
-        u_register.input_email(config.res_email)
+        u_register.input_email(ConfigDate.res_email)
         u_register.get_code()
         u_register.captcha()
         text = u_register.get_code_text()
         self.assertIn('验证码已经发送至您的邮箱，请注意查收', text)
         u_register.input_code('3201')
-        u_register.input_nickname(config.res_nickname)
+        u_register.input_nickname(ConfigDate.res_nickname)
         u_register.input_pw('q5310543')
         u_register.input_confirm_pw('q5310543')
         u_register.click_area()
@@ -72,7 +72,7 @@ class TestRegister(mytest.MyTest):
         """输入已注册邮箱点击获取验证码"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_register = u_index.click_register_btn()
-        u_register.input_email(config.res_email)
+        u_register.input_email(ConfigDate.res_email)
         u_register.get_code()
         u_register.captcha()
         time.sleep(1)
@@ -93,7 +93,7 @@ class TestRegister(mytest.MyTest):
         """输入错误格式的用户名"""
         u_index = UtomarketIndexPage.IndexPage(self.dr)
         u_register = u_index.click_register_btn()
-        for i in config.error_nickname:
+        for i in ConfigDate.error_nickname:
             u_register.input_nickname(i)
             u_register.click_box()
             time.sleep(1)
